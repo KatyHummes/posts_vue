@@ -2,6 +2,8 @@
 import Button from 'primevue/button';
 import { ref } from 'vue';
 
+import Calendar from 'primevue/calendar';
+
 const value = ref(0);
 </script>
 
@@ -10,7 +12,6 @@ const value = ref(0);
         <div>
             olá, seja Bem Vindo
 
-            
         </div>
     </div>
 </template>
