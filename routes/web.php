@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +33,11 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('Dashboard',[
+            'posts' => Post::all()
+        ]);
     })->name('dashboard');
-   
+   Route::get('criar-post', [PostController::class, 'create'])->name('post.create');
+   Route::post('criar-post', [PostController::class, 'store'])->name('post.store')->middleware([HandlePrecognitiveRequests::class]);
+   Route::get('open-modal', [PostController::class, 'openModal'])->name('post.openModal')->middleware([HandlePrecognitiveRequests::class]);
 });
