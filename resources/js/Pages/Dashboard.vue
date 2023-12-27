@@ -7,11 +7,6 @@ const props = defineProps({
     posts: Array
 });
 
-const op = ref();
-
-const toggle = (event) => {
-    op.value.toggle(event);
-}
 </script>
 
 <template>
@@ -25,29 +20,21 @@ const toggle = (event) => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    {{ posts }}
                     <div class="p-4 grid grid-cols-6 gap-2 bg-purple-100 ">
-                       <!-- 
+
                         <div v-for="(post, index) in posts" :key="post.id">
                             <div class="flex items-center justify-around">
-                                <h1>{{ post.title }}</h1>
-                                <OverlayPanel :ref="el => setOpRef(el, index)">
-                                    teste
-                                </OverlayPanel>
-                                <Button type="button" icon="pi pi-image" label="Image"
-                                    @click="event => toggle(index, event)" >
-                            </div> --> 
+                                <div class="bg-white p-4 rounded-lg">
+                                    <img :src="'/storage/' + post.image_path" alt=""
+                                        class="h-40 w-40 hover:scale-110 transition duration-300 ease-out rounded-2xl">
+                                    <h1>{{ post.title }}</h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- <button type="button" @click="toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                        </svg>
-                    </button> -->
-                </div>
-                <!-- <img :src="'/storage/' + post.image_path" alt=""
+                    <!-- <img :src="'/storage/' + post.image_path" alt=""
                     class="h-40 w-40 hover:scale-110 transition duration-300 ease-out rounded-2xl"> -->
+                </div>
             </div>
         </div>
     </AppLayout>

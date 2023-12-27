@@ -31,10 +31,9 @@ const handleFileChange = (event) => {
     }
 };
 //  route('post.store')
-const form = useForm('post', '/criar-post', {
+const form = useForm('post', route('post.store'), {
     title: '',
-    image: '',
-    user_id: '',
+    image: null,
 });
 
 const submit = () => form.submit({

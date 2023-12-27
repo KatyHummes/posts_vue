@@ -16,10 +16,9 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $filePath = null;
         $fileName = null;
-
 
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -30,10 +29,10 @@ class PostController extends Controller
         }
         // dd($request->all());
         Post::create([
+            'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
             'image_path' => $filePath,
             'image_name' => $fileName,
-            'user_id' => auth()->user()->id
         ]);
 
     }

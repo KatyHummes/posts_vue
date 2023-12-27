@@ -23,8 +23,7 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => ['required', 'max:255'],
-            'image' => ['required', 'max:255'],
-            'user_id' => ['required', 'max:255'],
+            'image' => ['required'],
         ];
     }
 
@@ -34,12 +33,6 @@ class PostRequest extends FormRequest
             'required' => 'Este campo é obrigatorio!',
             'max' => 'Este campo deve ter no maximo 255 caracteres!',
         ];
-       
     }
-
-    public function openModal()
-{
-    return inertia('Modal/Index');
-}
 
 }
