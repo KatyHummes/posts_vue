@@ -39,4 +39,7 @@ Route::middleware([
     })->name('dashboard');
     Route::get('criar-post', [PostController::class, 'create'])->name('post.create');
     Route::post('criar-post', [PostController::class, 'store'])->name('post.store')->middleware([HandlePrecognitiveRequests::class]);
+    
+    Route::post('editar-post/{id}', [PostController::class, 'update'])->name('post.update');
+    Route::delete('deletar-post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 });
