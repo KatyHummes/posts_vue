@@ -4,7 +4,7 @@ import { ref } from "vue";
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Button from 'primevue/button';
 import Modal from '@/Components/Modal.vue';
-import {useToast} from 'vue-toast-notification';
+import { useToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
 const toast = useToast();
@@ -70,10 +70,6 @@ const closeUpdatePostModal = () => {
     showUpdatePostModal.value = false;
 };
 
-// const handleFileChange = (event) => {
-//     formUpdatePost.value.image_path = event.target.files[0];
-// };
-
 const updatePost = () => {
     console.log('entrou na função updatePost');
     formUpdatePost.value.submit({
@@ -90,6 +86,27 @@ const updatePost = () => {
             });
         }
     });
+};
+
+const handleFileChange = (e) => {
+
+
+    console.log('entrou na função handleFileChange');
+    const file = e.target.files[0];
+
+    if (!file.type.includes('image')) {
+        toast.error("Apenas imagens são permitidas!", {
+            position: 'top-right',
+        });
+        file.value = null;
+        document.getElementById('image_path').value = null;
+        return;
+    }
+
+    formUpdatePost.value.image_path = file;
+
+    // faça uma validação de somente imagens
+
 };
 </script>
 
@@ -153,7 +170,7 @@ const updatePost = () => {
         </div>
     </AppLayout>
 
-    <!-- modal para deletar posts -->
+    <!-- modal para deletar post -->
     <Modal :show="showDeletePostConfirmModal" @close="closeDeletePostConfirmModal">
         <form @submit.prevent="deletePost()" class="bg-[var(--surface-50)] p-4">
             <h2 class="flex items-center justify-center p-4 m-4 font-bold text-slate-950">Tem certeza que deseja
@@ -169,8 +186,8 @@ const updatePost = () => {
         </form>
     </Modal>
 
-    <!-- Modal de Editar Pessoa -->
-    <Modal :show="showUpdatePostModal" @close="closeUpdatePostModal" :max-width="'4xl'">
+    <!-- Modal de Editar Post -->
+    <Modal :show="showUpdatePostModal" @close="closeUpdatePostModal" :max-width="'2xl'">
         <div class="flex items-start justify-between p-4 border-b rounded-t">
             <h3 class="text-xl font-semibold text-slate-950 ">
                 Editar Post
@@ -198,11 +215,12 @@ const updatePost = () => {
                         <label class="block text-gray-900 text-sm font-bold mb-2" for="image_path">
                             alterar imagem
                         </label>
-                        <input type="file" id="image_path" name="image_path" @change="handleFileChange"
+                        <input type="file" id="image_path" name="image_path" @change="handleFileChange($event)"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
                     <div>
-                        <img :src="'/storage/' + post.image_path" alt="" class="max-h-40 w-40 hover:scale-110 transition duration-300 ease-out rounded-2xl">
+                        <img :src="'/storage/' + post.image_path" alt=""
+                            class="max-h-40 w-40 hover:scale-110 transition duration-300 ease-out rounded-2xl">
                     </div>
                 </div>
                 <div class="flex justify-between mt-12">
